@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>To-Do List</title>
+    <style>
+      /* General Page Styles */
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f7fa;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        background-color: #fff;
+        padding: 2rem 3rem;
+        margin-top: 3rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 500px;
+      }
+
+      h1 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 0.2rem;
+      }
+
+      p {
+        text-align: center;
+        color: #7f8c8d;
+        margin-bottom: 2rem;
+      }
+
+      /* Form Styles */
+      form {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+
+      input[type="text"] {
+        flex: 1;
+        padding: 0.6rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+      }
+
+      button {
+        padding: 0.6rem 1rem;
+        margin-left: 0.5rem;
+        border: none;
+        border-radius: 6px;
+        background-color: #3498db;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+
+      /* To-Do List Styles */
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .todo-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 1rem;
+        margin-bottom: 0.8rem;
+        background-color: #ecf0f1;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+      }
+
+      .todo-item:hover {
+        background-color: #dcdde1;
+      }
+
+      .todo-item form {
+        margin: 0;
+      }
+
+      .todo-item button {
+        background-color: #2ecc71;
+      }
+
+      .todo-item button:hover {
+        background-color: #27ae60;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+
+       <h1>Profile Page</h1>
+
+    {% if user %}
+        <p>Welcome, {{ user }}!</p>
+    {% else %}
+        <p>You are not authenticated.</p>
+    {% endif %}
+
+      <h1>To-Do List</h1>
+      <p>You can track your tasks easily</p>
+
+      <form method="POST">
+        <input type="text" name="todo" placeholder="Add new task..." required>
+        <button type="submit">Add</button>
+      </form>
+
+      <ul>
+        {% for todo in todolist %}
+        <li class="todo-item">
+          {{ todo.strip() }}
+          <form method="POST" style="display:inline;">
+            <button name="remove" value="{{ todo.strip() }}">Done</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
